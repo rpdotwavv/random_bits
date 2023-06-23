@@ -30,12 +30,14 @@ while True:
     position_change = current_position - last_position
     if position_change > 0:
         for _ in range(position_change):
-            midi.send(ControlChange(16, knob1))
             knob1 = (knob1 +1)
+            knob1 = min(max(knob1, 0), 127)
+            midi.send(ControlChange(16, knob1))
             print("MIDI CC:", knob1, "     ", "Encoder Position:", encoder.position)
     elif position_change < 0:
         for _ in range(-position_change):
-            midi.send(ControlChange(16, knob1))
             knob1 = (knob1 -1)
+            knob1 = min(max(knob1, 0), 127)
+            midi.send(ControlChange(16, knob1))
             print("MIDI CC:", knob1, "     ", "Encoder Position:", encoder.position)
     last_position = current_position
