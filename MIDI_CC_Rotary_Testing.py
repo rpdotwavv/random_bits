@@ -20,12 +20,13 @@ midi = adafruit_midi.MIDI(midi_out=usb_midi.ports[1], out_channel=0)
 
 
 while True:
-    #Encoder loop
+    #Encoder loop setup
     encoder.position = min(max(encoder.position, 0), 127)
     knob1 = encoder.position
-
     current_position = encoder.position
     position_change = current_position - last_position
+    
+    # position change loops
     if position_change > 0:
         for _ in range(position_change):
             knob1 = (knob1 +1)
